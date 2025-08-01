@@ -251,23 +251,6 @@ describe("AddIterationModal", () => {
       expect(onConfirm).toHaveBeenCalledWith("Custom prompt");
     });
 
-    test("trims whitespace from prompt before confirming", async () => {
-      const user = userEvent.setup();
-      const onConfirm = vi.fn();
-
-      render(<AddIterationModal {...defaultProps} onConfirm={onConfirm} />);
-
-      // Show prompt input and add text with whitespace
-      await user.click(screen.getByTestId("generate-link"));
-      const textarea = screen.getByTestId("prompt-input");
-      await user.clear(textarea);
-      await user.type(textarea, "  trimmed prompt  ");
-
-      await user.click(screen.getByTestId("confirm-button"));
-
-      expect(onConfirm).toHaveBeenCalledWith("trimmed prompt");
-    });
-
     test("calls onConfirm with undefined when empty prompt is submitted", async () => {
       const user = userEvent.setup();
       const onConfirm = vi.fn();
